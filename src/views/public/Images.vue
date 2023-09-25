@@ -128,13 +128,13 @@ export default {
   data () {
     return {
       headers: [
-        {text: 'NAME', align: 'start', sortable: true, value: 'name'},
-        {text: 'TAG', align: 'start', sortable: true, value: 'tag'},
-        {text: 'IMAGE ID', align: 'start', sortable: true, value: 'longId'},
-        {text: 'SHORT ID', align: 'start', sortable: true, value: 'id'},
-        {text: 'CREATED', align: 'start', sortable: true, value: 'time', formatter: this.timeFormatter},
-        {text: 'SIZE', align: 'start', sortable: true, value: 'size'},
-        {text: 'ACTIONS', align: 'start', sortable: false, value: 'actions'},
+        {text: '名称', align: 'start', sortable: true, value: 'name'},
+        {text: '标签', align: 'start', sortable: true, value: 'tag'},
+        {text: '镜像ID', align: 'start', sortable: true, value: 'longId'},
+        {text: 'ID', align: 'start', sortable: true, value: 'id'},
+        {text: '创建时间', align: 'start', sortable: true, value: 'time', formatter: this.timeFormatter},
+        {text: '大小', align: 'start', sortable: true, value: 'size'},
+        {text: '操作', align: 'start', sortable: false, value: 'actions'},
       ],
       images: [],
       imageList: [],

@@ -263,11 +263,11 @@
     data() {
       return {
         headers: [
-          {text: 'NAME', align: 'start', sortable: true, value: 'name'},
-          {text: 'SHORT ID', align: 'start', sortable: true, value: 'id'},
-          {text: 'IMAGE', align: 'start', sortable: true, value: 'imageName'},
-          {text: 'STATUS', align: 'start', sortable: true, value: 'status'},
-          {text: 'ACTIONS', align: 'start', sortable: false, value: 'actions'},
+          {text: '名称', align: 'start', sortable: true, value: 'name'},
+          {text: 'ID', align: 'start', sortable: true, value: 'id'},
+          {text: '镜像', align: 'start', sortable: true, value: 'imageName'},
+          {text: '状态', align: 'start', sortable: true, value: 'status'},
+          {text: '操作', align: 'start', sortable: false, value: 'actions'},
         ],
         containers: [],
         containerClicked: {},

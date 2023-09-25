@@ -8,7 +8,7 @@ import { VueAxios } from "@/http/request.js";
 import api from "@/api/api.js";
 Vue.prototype.$api = api;
 Vue.config.productionTip = false;
-Vue.prototype.$axios = axios.create({baseURL:"/api",timeout:5000});
+Vue.prototype.$axios = axios.create({baseURL:"http://10.251.252.117:5001",timeout:5000});
 Vue.config.productionTip = false
 Vue.use(VueAxios);
 

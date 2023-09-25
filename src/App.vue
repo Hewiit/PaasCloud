@@ -2,11 +2,11 @@
   <v-app>
     <v-app-bar
       app
-      color="primary"
+      color="black"
       dark
     >
       <div class="d-flex align-center">
-        <span style="font-size: 35px; font-weight: bold;">k7s</span>
+        <span style="font-size: 35px; font-weight新民主主义的政治经济和文化: bold;">PassCloud</span>
       </div>
     </v-app-bar>
 
@@ -64,7 +64,6 @@ export default {
         items: [
           { title: '镜像管理', icon: 'mdi-view-dashboard', route: '/images'},
           { title: '容器管理', icon: 'mdi-forum', route: '/containers'},
-          { title: '应用部署', icon: 'mdi-card-multiple', route: '/applications'},
         ],
       }
     },

@@ -1,4 +1,4 @@
-# K7s
+# PassCloud
 
 ------
 
@@ -14,7 +14,7 @@
 ## Project Structure
 
 ```bash
-k7s
+PaaSCloud
 	doc/ 文档目录，请将属于整个项目的文档、属于项目局部但较为复杂的文档放到这里
 	dist/ webpack打包输出目录，已加入.gitignore
 	node_modules/ npm模块目录，已加入.gitignore
