@@ -1,5 +1,21 @@
 <template>
   <div>
+    <v-snackbar
+        v-model="snackbar"
+        :timeout="timeout"
+    >
+      {{ text }}
+
+      <template v-slot:actions>
+        <v-btn
+            color="blue"
+            variant="text"
+            @click="snackbar = false"
+        >
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
     <v-card class="ma-2 mt-6 elevation-4 pa-2">
       <v-card-title>
         镜像管理
@@ -18,6 +34,9 @@
           disable-pagination
           :hide-default-footer="true"
           :search="search"
+          :style="{ backgroundImage: `url(${require('/src/assets/docker.jpg')})`,
+  backgroundSize: 'cover' ,
+  backgroundPosition:'center center'}"
       >
         <template
             v-for="header in headers.filter((header) =>
@@ -50,11 +69,11 @@
                 TAGS:
                 <v-chip v-for="tag in imageToInspect.raw.tags" :key="tag" class="ma-2" color="primary" small> {{ tag }} </v-chip>
               </v-row>
-              <v-row>
-                <v-btn text @click="showRawJson = !showRawJson" small>
-                  <v-icon>mdi-code-braces</v-icon> {{showRawJson? 'HIDE RAW JSON' : 'VIEW RAW JSON'}}
-                </v-btn>
-              </v-row>
+<!--              <v-row>-->
+<!--                <v-btn text @click="showRawJson = !showRawJson" small>-->
+<!--                  <v-icon>mdi-code-braces</v-icon> {{showRawJson? 'HIDE RAW JSON' : 'VIEW RAW JSON'}}-->
+<!--                </v-btn>-->
+<!--              </v-row>-->
               <v-row v-if="showRawJson">
                 <v-card max-height="600" style="overflow: auto">
                   <pre>{{imageToInspect.raw}}</pre>
@@ -142,7 +161,9 @@ export default {
       dialogFlag: false,
       imageToInspect: 0,
       showRawJson: false,
-
+      text:'',
+      snackbar:false,
+      timeout:2000,
       speedDialFlag: false,
 
       fromRemoteDialogFlag: false,
@@ -160,10 +181,11 @@ export default {
       let form = new FormData();
       form.append('image_id', item.longId);
       await this.$axios.post('/remove_image', form).then((res) => {
-        if(res.data === 'delete success') alert(`镜像${item.id}已成功删除`);
+        if(res.data === 'delete success') {this.text=`镜像${item.id}已成功删除`;this.snackbar=true;}
         else throw res.data;
       }).catch(() => {
-        alert(`镜像${item.id}删除失败`);
+        this.text=`镜像${item.id}删除失败`;
+        this.snackbar=true;
         this.refreshList();
       })
     },

@@ -1,5 +1,7 @@
 <template>
-  <div class="page-container">
+  <div class="page-container" :style="{ backgroundImage: `url(${require('/src/assets/docker.jpg')})`,
+  backgroundSize: 'cover' ,
+  backgroundPosition:'center center'}">
     <!-- 新增部署 弹窗-->
     <v-dialog v-model="newDialog" width="500">
       <template v-slot:activator="{ on, attrs }">

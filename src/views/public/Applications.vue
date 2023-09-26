@@ -2,17 +2,18 @@
   <div>
     <template>
       <v-card>
-        <v-tabs
-          background-color="light-blue accent-4"
-          @change="changeTab"
-          center-active
-          dark
-        >
-          <v-tab>Pods 容器</v-tab>
-          <v-tab>Deployment 部署</v-tab>
-          <v-tab>Service 服务</v-tab>
-          <v-tab>Applications 应用</v-tab>
-        </v-tabs>
+<!--      >-->
+<!--        <v-tabs-->
+<!--          background-color="light-blue accent-4"-->
+<!--          @change="changeTab"-->
+<!--          center-active-->
+<!--          dark-->
+<!--        >-->
+<!--&lt;!&ndash;          <v-tab>Pods 容器</v-tab>&ndash;&gt;-->
+<!--&lt;!&ndash;          <v-tab>Deployment 部署</v-tab>&ndash;&gt;-->
+<!--&lt;!&ndash;          <v-tab>Service 服务</v-tab>&ndash;&gt;-->
+<!--&lt;!&ndash;          <v-tab>Applications 应用</v-tab>&ndash;&gt;-->
+<!--        </v-tabs>-->
       </v-card>
     </template>
     <router-view />

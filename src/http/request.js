@@ -8,7 +8,7 @@ import { VueAxios } from './axios'
 // 创建 axios 实例
 const request = axios.create({
     // API 请求的默认前缀
-    baseURL: "/api",
+    baseURL: "http://10.251.252.117:5001",
     // baseURL: "https://jsonplaceholder.typicode.com",
     // baseURL: process.env.VUE_APP_API_BASE_URL,
     timeout: 6000, // 请求超时时间

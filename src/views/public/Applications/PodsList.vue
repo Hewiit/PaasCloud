@@ -1,5 +1,7 @@
 <template>
-  <div class="page-container">
+  <div class="page-container" :style="{ backgroundImage: `url(${require('/src/assets/docker.jpg')})`,
+  backgroundSize: 'cover' ,
+  backgroundPosition:'center center'}">
     <v-expansion-panels popout hover>
       <v-expansion-panel
         active-class="expansion-panel-class"

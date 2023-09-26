@@ -1,6 +1,22 @@
 <template>
-  <div>
-    <v-card class="ma-2 mt-6 elevation-4 pa-2">
+  <div >
+    <v-snackbar
+        v-model="snackbar"
+        :timeout="timeout"
+    >
+      {{ text }}
+
+      <template v-slot:actions>
+        <v-btn
+            color="blue"
+            variant="text"
+            @click="snackbar = false"
+        >
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
+    <v-card class="ma-2 mt-6 elevation-4 pa-2" >
       <v-card-title>
         容器管理
         <v-spacer></v-spacer>
@@ -12,6 +28,9 @@
           disable-pagination
           :hide-default-footer="true"
           :search="search"
+          :style="{ backgroundImage: `url(${require('/src/assets/docker.jpg')})`,
+  backgroundSize: 'cover' ,
+  backgroundPosition:'center center'}"
       >
         <template v-slot:item.actions="{ item }">
           <v-tooltip left>
@@ -42,12 +61,12 @@
             <span>重启容器</span>
           </v-tooltip>
           &nbsp;
-          <v-tooltip left>
-            <template v-slot:activator="{ on, attrs }">
-              <v-icon @click="handleCommitContainer(item)" v-on="on" v-bind="attrs">mdi-file-edit-outline</v-icon>
-            </template>
-            <span>提交容器</span>
-          </v-tooltip>
+<!--          <v-tooltip left>-->
+<!--            <template v-slot:activator="{ on, attrs }">-->
+<!--              <v-icon @click="handleCommitContainer(item)" v-on="on" v-bind="attrs">mdi-file-edit-outline</v-icon>-->
+<!--            </template>-->
+<!--            <span>提交容器</span>-->
+<!--          </v-tooltip>-->
           &nbsp;
           <v-tooltip left>
             <template v-slot:activator="{ on, attrs }">
@@ -99,16 +118,16 @@
                       <v-col :cols="4">
                         <v-text-field v-model="createContainerForm.tmp.host_port" label="主机端口" clearable></v-text-field>
                       </v-col>
-                      <v-col :cols="1">
-                        <v-tooltip left>
-                          <template v-slot:activator="{ on, attrs }">
-                            <v-btn text fab @click="addPort" v-on="on" v-bind="attrs">
-                              <v-icon>mdi-plus</v-icon>
-                            </v-btn>
-                          </template>
-                          <span>添加端口映射</span>
-                        </v-tooltip>
-                      </v-col>
+<!--                      <v-col :cols="1">-->
+<!--                        <v-tooltip left>-->
+<!--                          <template v-slot:activator="{ on, attrs }">-->
+<!--                            <v-btn text fab @click="addPort" v-on="on" v-bind="attrs">-->
+<!--                              <v-icon>mdi-plus</v-icon>-->
+<!--                            </v-btn>-->
+<!--                          </template>-->
+<!--                          <span>添加端口映射</span>-->
+<!--                        </v-tooltip>-->
+<!--                      </v-col>-->
                     </v-row>
                     <v-row>
                       <v-chip v-for="pair in createContainerForm.ports" :key="pair[0]" class="ma-2" close
@@ -120,21 +139,21 @@
                 </v-card-text>
               </v-card>
             </v-row>
-            <v-row>
-              <v-textarea outlined label="需要执行的命令" v-model="createContainerForm.command"
-                          hint="每行一条命令" persistent-hint>
-              </v-textarea>
-            </v-row>
-            <v-row>
-              <v-col :cols="6">
-                <v-textarea outlined label="绑定卷" v-model="createContainerForm.volume"
-                            hint="每行一条绑定命令，格式：/home/user1/:/mnt/vol2" persistent-hint>
-                </v-textarea>
-              </v-col>
-              <v-col :cols="6">
-                <v-textarea outlined label="环境变量" v-model="createContainerForm.environment" hint="每行一个，格式：ENV_VAR=xxx" persistent-hint></v-textarea>
-              </v-col>
-            </v-row>
+<!--            <v-row>-->
+<!--              <v-textarea outlined label="需要执行的命令" v-model="createContainerForm.command"-->
+<!--                          hint="每行一条命令" persistent-hint>-->
+<!--              </v-textarea>-->
+<!--            </v-row>-->
+<!--            <v-row>-->
+<!--              <v-col :cols="6">-->
+<!--                <v-textarea outlined label="绑定卷" v-model="createContainerForm.volume"-->
+<!--                            hint="每行一条绑定命令，格式：/home/user1/:/mnt/vol2" persistent-hint>-->
+<!--                </v-textarea>-->
+<!--              </v-col>-->
+<!--              <v-col :cols="6">-->
+<!--                <v-textarea outlined label="环境变量" v-model="createContainerForm.environment" hint="每行一个，格式：ENV_VAR=xxx" persistent-hint></v-textarea>-->
+<!--              </v-col>-->
+<!--            </v-row>-->
 
           </v-container>
         </v-card-text>
@@ -192,12 +211,12 @@
                 <span>重启容器</span>
               </v-tooltip>
               &nbsp;
-              <v-tooltip top>
-                <template v-slot:activator="{ on, attrs }">
-                  <v-icon @click="handleCommitContainer(containerClicked)" v-on="on" v-bind="attrs">mdi-file-edit-outline</v-icon>
-                </template>
-                <span>提交容器</span>
-              </v-tooltip>
+<!--              <v-tooltip top>-->
+<!--                <template v-slot:activator="{ on, attrs }">-->
+<!--                  <v-icon @click="handleCommitContainer(containerClicked)" v-on="on" v-bind="attrs">mdi-file-edit-outline</v-icon>-->
+<!--                </template>-->
+<!--                <span>提交容器</span>-->
+<!--              </v-tooltip>-->
               &nbsp;
               <v-tooltip top>
                 <template v-slot:activator="{ on, attrs }">
@@ -212,9 +231,9 @@
     </v-dialog>
     <v-dialog v-model="commitDialogFlag" max-width="960px" v-if="commitDialogFlag">
       <v-card :loading="commitDialogLoading">
-        <v-card-title>
-          <span class="headline">提交容器{{ containerClicked.name }}到仓库</span>
-        </v-card-title>
+<!--        <v-card-title>-->
+<!--          <span class="headline">提交容器{{ containerClicked.name }}到仓库</span>-->
+<!--        </v-card-title>-->
 
         <v-card-text>
           <v-container>
@@ -241,11 +260,11 @@
             </v-row>
           </v-container>
         </v-card-text>
-        <v-card-actions>
-          <span>{{result}}</span>
-          <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" text @click="commitContainer">提交容器</v-btn>
-        </v-card-actions>
+<!--        <v-card-actions>-->
+<!--          <span>{{result}}</span>-->
+<!--          <v-spacer></v-spacer>-->
+<!--          <v-btn color="blue darken-1" text @click="commitContainer">提交容器</v-btn>-->
+<!--        </v-card-actions>-->
       </v-card>
     </v-dialog>
   </div>
@@ -272,7 +291,9 @@
         containers: [],
         containerClicked: {},
         inspectDialogFlag: false,
-
+        snackbar: false,
+        timeout:2000,
+        text:'',
         runDialogFlag: false,
         runDialogLoading: false,
         createContainerForm: {
@@ -351,10 +372,11 @@
             let form = new FormData();
             form.append('container_id', item.longId);
             await this.$axios.post('/remove_container', form).then((res) => {
-              if(res.data === 'remove success') alert(`镜像${item.id}已成功删除`) && this.refreshList();
+              if(res.data === 'remove success') {this.text=`容器${item.id}已成功删除` ; this.snackbar=true; this.refreshList();}
               else throw res.data;
             }).catch(() => {
-              alert(`镜像${item.id}删除失败`);
+              this.text=`容器${item.id}删除失败`;
+              this.snackbar=true;
               this.refreshList();
             })
           }
@@ -365,10 +387,11 @@
             let form = new FormData();
             form.append('container_id', item.longId);
             await this.$axios.post('/start_container', form).then((res) => {
-              if(res.data === 'start success') alert(`镜像${item.id}已启动`) && this.refreshList();
+              if(res.data === 'start success') {this.text=`容器${item.id}已启动`;this.snackbar=true; this.refreshList();}
               else throw res.data;
             }).catch(() => {
-              alert(`镜像${item.id}无法启动`);
+              this.text=`容器${item.id}无法启动`;
+              this.snackbar=true;
               this.refreshList();
             })
           }
@@ -380,11 +403,11 @@
             form.append('container_id', item.longId);
             await this.$axios.post('/stop_container', form).then((res) => {
               if(res.data === 'stop success') {
-                alert(`镜像${item.id}已停止`) && this.refreshList();
+                this.text=`容器${item.id}已停止` ;this.snackbar=true;this.refreshList();
               }
               else throw res.data;
             }).catch(() => {
-              alert(`镜像${item.id}无法停止`) && this.refreshList();
+              this.text=`容器${item.id}无法停止`; this.snackbar=true; this.refreshList();
             })
           }
           break;
@@ -394,10 +417,11 @@
             let form = new FormData();
             form.append('container_id', item.longId);
             await this.$axios.post('/restart_container', form).then((res) => {
-              if(res.data === 'restart success') alert(`镜像${item.id}已成功重启`) && this.refreshList();
+              if(res.data === 'restart success') {this.text=`容器${item.id}已成功重启` ;this.snackbar=true; this.refreshList();}
               else throw res.data;
             }).catch(() => {
-              alert(`镜像${item.id}重启失败`);
+              this.text=`容器${item.id}重启失败`;
+              this.snackbar=true;
               this.refreshList();
             })
           }
@@ -413,22 +437,26 @@
         let form = new FormData();
         form.append('image', this.createContainerForm.image);
         form.append('name', this.createContainerForm.name);
-        for(let i = 0, l = this.createContainerForm.command.length; i < l; i++) {
-          form.append('command', this.createContainerForm.command[i]);
-        }
-        for(let i = 0, l = this.createContainerForm.volume.length; i < l; i++) {
-          form.append('volumes', this.createContainerForm.volume[i]);
-        }
-        for(let i = 0, l = this.createContainerForm.environment.length; i < l; i++) {
-          form.append('environment', this.createContainerForm.environment[i]);
-        }
+        form.append('protocol', this.createContainerForm.tmp.protocol);
+        form.append('container_port', this.createContainerForm.tmp.container_port);
+        form.append('host_port', this.createContainerForm.tmp.host_port);
+        // for(let i = 0, l = this.createContainerForm.command.length; i < l; i++) {
+        //   form.append('command', this.createContainerForm.command[i]);
+        // }
+        // for(let i = 0, l = this.createContainerForm.volume.length; i < l; i++) {
+        //   form.append('volumes', this.createContainerForm.volume[i]);
+        // }
+        // for(let i = 0, l = this.createContainerForm.environment.length; i < l; i++) {
+        //   form.append('environment', this.createContainerForm.environment[i]);
+        // }
         this.result = '正在加载...';
         await this.$axios.post('/run_container', form).then((res) => {
           if(res.data === 'create success') this.result = '容器已启动';
           else throw res.data;
         }).catch(() => {
           this.result = '容器创建失败';
-          alert('容器提交失败');
+          this.text='容器提交失败';
+          this.snackbar=true;
         })
         this.runDialogLoading = false;
       },
@@ -447,7 +475,8 @@
           else throw res.data;
         }).catch(() => {
           this.result = '容器提交失败';
-          alert('容器提交失败');
+          this.text='容器提交失败';
+          this.snackbar=true;
         })
         this.commitDialogLoading = false;
       },
